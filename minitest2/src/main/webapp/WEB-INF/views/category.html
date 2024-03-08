@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/category">Task</a>
+</p>
+<h1>Your Category</h1>
+<form th:action="@{/task}" th:object="${category}" method="post">
+    <h3>Total Items: <span th:text="${category.countItemQuantity()}"></span></h3>
+    <h3>Total Tasks: <span th:text="${category.countProductQuantity()}"></span></h3>
+    <table border="1">
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+        </tr>
+        <tr th:each="task: ${category.products}">
+            <td th:text="${task.getKey().name}"></td>
+            <td>
+                <a id="decrease_button" th:text="${'-'}"></a>
+                <span th:text="${task.getValue()}"></span>
+                <a id="increase_button" th:href="@{/add/__${task.getKey().id}__(action='show')}">+</a>
+
+            </td>
+            <td th:text="${task.getKey().amount}"></td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td th:text="${category.countTotalPayment()}"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
